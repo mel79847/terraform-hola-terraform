@@ -1,0 +1,6 @@
+# Carpetas y archivos que Terraform genera y NO se suben
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+crash.log
+.crash
