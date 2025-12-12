@@ -14,17 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Traer el código del repo
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # 2) Instalar Terraform en el runner
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.14.1
 
-      # 3) Configurar credenciales de AWS usando secrets del repo
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -32,22 +29,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 4) Inicializar Terraform
       - name: Terraform Init
         run: terraform init
 
-      # 5) Validar formato
       - name: Terraform Format Check
         run: terraform fmt -check
 
-      # 6) Validar sintaxis
       - name: Terraform Validate
         run: terraform validate
 
-      # 7) Plan (ver qué va a crear)
       - name: Terraform Plan
         run: terraform plan
 
-      # 8) Apply (crear realmente la infra)
       - name: Terraform Apply
         run: terraform apply -auto-approve
